@@ -4,11 +4,13 @@ import java.util.List;
 
 public class Question {
 
+    private String section;
     private String title;
     private String correctAnswer;
     private List<String> listQuestion;
 
-    public Question(String title, String correctAnswer, List<String> listQuestion) {
+    public Question(String section, String title, String correctAnswer, List<String> listQuestion) {
+        this.section = section;
         this.title = title;
         this.correctAnswer = correctAnswer;
         this.listQuestion = listQuestion;
@@ -36,5 +38,13 @@ public class Question {
 
     public void setListQuestion(List<String> listQuestion) {
         this.listQuestion = listQuestion;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 }

@@ -1,5 +1,6 @@
 package com.company.ee;
 
+import com.company.ee.model.ListQuestion;
 import com.company.ee.model.Question;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -12,23 +13,22 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");
-        Question question = new Question("Выберите вариант с цифрой 1","1",list);
+
+        ReaderFile readerFile = new ReaderFile();
+
         Moshi moshi = new Moshi.Builder().build();
         JsonAdapter<Question> jsonAdapter = moshi.adapter(Question.class);
 
-        String st = jsonAdapter.toJson(question);
-        try {
-            FileWriter fileWriter = new FileWriter("filejson/question.json",false);
-            fileWriter.write(st);
-            fileWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        List<Question> questionList = new ParseQuestion().toListQuestion(readerFile.read());
+
+        String st = "[";
+        int size = questionList.size() - 1;
+        for (int i = 0; i < questionList.size(); i++) {
+            st = st.concat(jsonAdapter.toJson(questionList.get(i)));
+            st = st.concat(size == i? "]":",");
         }
+
+       readerFile.write(st);
 
     }
 }
