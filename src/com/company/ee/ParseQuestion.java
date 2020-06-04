@@ -18,6 +18,7 @@ public class ParseQuestion {
             stringList = new ArrayList<>();
 
             s = item.split(":::");
+            System.out.println(s[2]);
             Collections.addAll(stringList,s[3].split("--"));
 
             questionList.add(new Question(s[0],s[1],s[2],stringList));
